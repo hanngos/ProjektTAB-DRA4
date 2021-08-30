@@ -1,0 +1,7 @@
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\DataLayer\bin\Debug\DataLayer.dll
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\DataLayer\bin\Debug\DataLayer.pdb
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\DataLayer\obj\Debug\DataLayer.csprojAssemblyReference.cache
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\DataLayer\obj\Debug\DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\DataLayer\obj\Debug\DataLayer.dll
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\DataLayer\obj\Debug\DataLayer.pdb
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\DataLayer\bin\Debug\DataLayer.dll.config

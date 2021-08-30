@@ -1,0 +1,10 @@
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\bin\Debug\BizLayer.dll
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\bin\Debug\BizLayer.pdb
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\bin\Debug\DataLayer.dll
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\bin\Debug\DataLayer.pdb
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\bin\Debug\DataLayer.dll.config
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\obj\Debug\BizLayer.csprojAssemblyReference.cache
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\obj\Debug\BizLayer.csproj.CoreCompileInputs.cache
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\obj\Debug\BizLayer.csproj.CopyComplete
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\obj\Debug\BizLayer.dll
+C:\Users\irene\Source\Repos\projekt_TAB\projekt_TAB\BizLayer\obj\Debug\BizLayer.pdb
