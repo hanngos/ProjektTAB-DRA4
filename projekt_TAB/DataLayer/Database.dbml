@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DRA4" Class="DatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-M918CLL;Initial Catalog=DRA4;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="DataLayer.Properties.Settings" SettingsPropertyName="DRA4ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AcMan" Member="AcMan">
+    <Type Name="AcMan">
+      <Column Name="id_acc" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="AcMan_Request" Member="Request" ThisKey="id_acc" OtherKey="acman_id" Type="Request" />
+      <Association Name="Man_AcMan" Member="Man" ThisKey="id_acc" OtherKey="id_man" Type="Man" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Admin" Member="Admin">
+    <Type Name="Admin">
+      <Column Name="id_admin" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Man_Admin" Member="Man" ThisKey="id_admin" OtherKey="id_man" Type="Man" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Client" Member="Client">
+    <Type Name="Client">
+      <Column Name="id_cli" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Client_System_Client" Member="System_Client" ThisKey="id_cli" OtherKey="client_id" Type="System_Client" />
+      <Association Name="Man_Client" Member="Man" ThisKey="id_cli" OtherKey="id_man" Type="Man" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Issue" Member="Issue">
+    <Type Name="Issue">
+      <Column Name="id_iss" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="result" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="type" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="request_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="prodman_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Issue_Issue_status_history" Member="Issue_status_history" ThisKey="id_iss" OtherKey="issue_id" Type="Issue_status_history" />
+      <Association Name="Issue_Task" Member="Task" ThisKey="id_iss" OtherKey="issue_id" Type="Task" />
+      <Association Name="Issue_Type_Issue" Member="Issue_Type" ThisKey="type" OtherKey="type" Type="Issue_Type" IsForeignKey="true" />
+      <Association Name="Request_Issue" Member="Request" ThisKey="request_id" OtherKey="id_req" Type="Request" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Status_Issue" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Issue_status_history" Member="Issue_status_history">
+    <Type Name="Issue_status_history">
+      <Column Name="issue_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Issue_Issue_status_history" Member="Issue" ThisKey="issue_id" OtherKey="id_iss" Type="Issue" IsForeignKey="true" />
+      <Association Name="Status_Issue_status_history" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Issue_Type" Member="Issue_Type">
+    <Type Name="Issue_Type">
+      <Column Name="type" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="type_name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Issue_Type_Issue" Member="Issue" ThisKey="type" OtherKey="type" Type="Issue" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Man" Member="Man">
+    <Type Name="Man">
+      <Column Name="login" Type="System.String" DbType="VarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="is_active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="first_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="last_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id_man" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="role" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Association Name="Man_AcMan" Member="AcMan" ThisKey="id_man" OtherKey="id_acc" Type="AcMan" Cardinality="One" />
+      <Association Name="Man_Admin" Member="Admin" ThisKey="id_man" OtherKey="id_admin" Type="Admin" Cardinality="One" />
+      <Association Name="Man_Client" Member="Client" ThisKey="id_man" OtherKey="id_cli" Type="Client" Cardinality="One" />
+      <Association Name="Man_ProdMan" Member="ProdMan" ThisKey="id_man" OtherKey="id_prod" Type="ProdMan" Cardinality="One" />
+      <Association Name="Man_Worker" Member="Worker" ThisKey="id_man" OtherKey="id_work" Type="Worker" Cardinality="One" />
+      <Association Name="Role_Man" Member="Role1" ThisKey="role" OtherKey="code" Type="Role" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProdMan" Member="ProdMan">
+    <Type Name="ProdMan">
+      <Column Name="id_prod" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Man_ProdMan" Member="Man" ThisKey="id_prod" OtherKey="id_man" Type="Man" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Request" Member="Request">
+    <Type Name="Request">
+      <Column Name="id_req" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="result" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="acman_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="systems_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Request_Issue" Member="Issue" ThisKey="id_req" OtherKey="request_id" Type="Issue" />
+      <Association Name="Request_Request_status_history" Member="Request_status_history" ThisKey="id_req" OtherKey="request_id" Type="Request_status_history" />
+      <Association Name="AcMan_Request" Member="AcMan" ThisKey="acman_id" OtherKey="id_acc" Type="AcMan" IsForeignKey="true" DeleteRule="SET NULL" />
+      <Association Name="Status_Request" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
+      <Association Name="System_Client_Request" Member="System_Client" ThisKey="systems_id" OtherKey="id_systems" Type="System_Client" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Request_status_history" Member="Request_status_history">
+    <Type Name="Request_status_history">
+      <Column Name="request_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Request_Request_status_history" Member="Request" ThisKey="request_id" OtherKey="id_req" Type="Request" IsForeignKey="true" />
+      <Association Name="Status_Request_status_history" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Role" Member="Role">
+    <Type Name="Role">
+      <Column Name="code" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="role" Member="role1" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Association Name="Role_Man" Member="Man" ThisKey="code" OtherKey="role" Type="Man" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Status" Member="Status">
+    <Type Name="Status">
+      <Column Name="status" Member="status1" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="status_name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Status_Issue" Member="Issue" ThisKey="status1" OtherKey="status" Type="Issue" />
+      <Association Name="Status_Issue_status_history" Member="Issue_status_history" ThisKey="status1" OtherKey="status" Type="Issue_status_history" />
+      <Association Name="Status_Request" Member="Request" ThisKey="status1" OtherKey="status" Type="Request" />
+      <Association Name="Status_Request_status_history" Member="Request_status_history" ThisKey="status1" OtherKey="status" Type="Request_status_history" />
+      <Association Name="Status_Task" Member="Task" ThisKey="status1" OtherKey="status" Type="Task" />
+      <Association Name="Status_Task_status_history" Member="Task_status_history" ThisKey="status1" OtherKey="status" Type="Task_status_history" />
+    </Type>
+  </Table>
+  <Table Name="dbo.System" Member="System">
+    <Type Name="System">
+      <Column Name="id_sys" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="versions" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="System_System_Client" Member="System_Client" ThisKey="id_sys" OtherKey="system_id" Type="System_Client" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[System-Client]" Member="System_Client">
+    <Type Name="System_Client">
+      <Column Name="id_systems" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="client_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="system_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="version" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
+      <Association Name="System_Client_Request" Member="Request" ThisKey="id_systems" OtherKey="systems_id" Type="Request" />
+      <Association Name="Client_System_Client" Member="Client" ThisKey="client_id" OtherKey="id_cli" Type="Client" IsForeignKey="true" />
+      <Association Name="System_System_Client" Member="System" ThisKey="system_id" OtherKey="id_sys" Type="System" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Task" Member="Task">
+    <Type Name="Task">
+      <Column Name="id_task" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(512) NOT NULL" CanBeNull="false" />
+      <Column Name="result" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="issue_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="worker_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="seq" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="priority" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Task_Task_status_history" Member="Task_status_history" ThisKey="id_task" OtherKey="task_id" Type="Task_status_history" />
+      <Association Name="Issue_Task" Member="Issue" ThisKey="issue_id" OtherKey="id_iss" Type="Issue" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Status_Task" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
+      <Association Name="Task_Type_Task" Member="Task_Type" ThisKey="type" OtherKey="type" Type="Task_Type" IsForeignKey="true" />
+      <Association Name="Worker_Task" Member="Worker" ThisKey="worker_id" OtherKey="id_work" Type="Worker" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Task_status_history" Member="Task_status_history">
+    <Type Name="Task_status_history">
+      <Column Name="task_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="status" Type="System.String" DbType="VarChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Status_Task_status_history" Member="Status1" ThisKey="status" OtherKey="status1" Type="Status" IsForeignKey="true" />
+      <Association Name="Task_Task_status_history" Member="Task" ThisKey="task_id" OtherKey="id_task" Type="Task" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Task_Type" Member="Task_Type">
+    <Type Name="Task_Type">
+      <Column Name="type" Type="System.String" DbType="VarChar(4) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="type_name" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Task_Type_Task" Member="Task" ThisKey="type" OtherKey="type" Type="Task" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Worker" Member="Worker">
+    <Type Name="Worker">
+      <Column Name="id_work" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Worker_Task" Member="Task" ThisKey="id_work" OtherKey="worker_id" Type="Task" />
+      <Association Name="Man_Worker" Member="Man" ThisKey="id_work" OtherKey="id_man" Type="Man" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
